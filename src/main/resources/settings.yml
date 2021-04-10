@@ -1,0 +1,11 @@
+DATABASE:
+  REDIS:
+    ADDRESS: '127.0.0.1'
+    PORT: 6379
+    CHANNEL: 'QueryAPI'
+    AUTH: #If you need auth, what are you doing with your life
+      ENABLED: false
+      PASSWORD: 'PleaseRunRedisLocally'
+
+SERVER:
+  NAME: 'Hub01'

@@ -1,0 +1,5 @@
+name: QueryAPI-Bukkit
+version: ${project.version}
+authors: [InvisRaidinq, NeedVoid]
+description: An API used for server data handling
+main: xyz.invisraidinq.queryapi.QueryPlugin
