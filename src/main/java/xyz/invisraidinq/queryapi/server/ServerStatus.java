@@ -5,6 +5,7 @@ public enum ServerStatus {
     ONLINE("&aOnline"),
     OFFLINE("&cOffline"),
     WHITELISTED("&dWhitelisted");
+    BOOTING("&eBooting");
 
     private final String format;
 
