@@ -1,6 +1,10 @@
 # QueryAPI-Bukkit
 ``NOTE: This plugin is untested, it's open source hence and is super easy to work with. Please report and issues to me``
 
+QueryAPI runs as its own bukkit plugins, so you'll need it in the ``plugins`` directory of each server you plan to retrieve information from. I'd also highly advise that you set the plugin as a dependency in your plugin.yml: ```softdepend: [QueryAPI-Bukkit]```, or as a hard dependency depending on your implementation.
+
+I'm also going to mention that you need to be on the SAME REDIS INSTANCE in order to communicate the information. I feel as if I shouldn't need to say this, but you'd be surprised.
+
 # Compiling
 First, clone the repository using ``git clone https://github.com/InvisRaidinq/QueryAPI-Bukkit.git``, and then compile using ``cd QueryAPI-Bukkit && mvn clean install``. A ``target/`` directory will be created, with the compiled JAR file.
 
