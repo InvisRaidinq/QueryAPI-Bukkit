@@ -9,6 +9,11 @@ public class ServerHeartbeatTask extends BukkitRunnable {
 
     private final ServerManager serverManager;
 
+    /**
+     * Constructor to initialise the {@link ServerHeartbeatTask}
+     *
+     * @param serverManager The {@link ServerManager} instance
+     */
     public ServerHeartbeatTask(ServerManager serverManager) {
         this.serverManager = serverManager;
     }

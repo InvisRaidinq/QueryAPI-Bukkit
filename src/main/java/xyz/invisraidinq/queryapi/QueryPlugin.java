@@ -2,7 +2,6 @@ package xyz.invisraidinq.queryapi;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.invisraidinq.queryapi.redis.RedisManager;
-import xyz.invisraidinq.queryapi.server.Server;
 import xyz.invisraidinq.queryapi.server.ServerManager;
 import xyz.invisraidinq.queryapi.task.ServerHeartbeatTask;
 import xyz.invisraidinq.queryapi.thread.ServerUpdateThread;
@@ -30,8 +29,8 @@ public class QueryPlugin extends JavaPlugin {
         new ServerUpdateThread(this.serverManager, this.redisManager, this.settingsFile).start();
         new ServerHeartbeatTask(this.serverManager).runTaskTimerAsynchronously(this, 0L, 200L);
 
-        new QueryAPI(this.serverManager);
-        
+        new QueryAPI(this, this.serverManager);
+
         CC.log("Plugin enabled in " + (System.currentTimeMillis() - start) + "ms");
     }
 
