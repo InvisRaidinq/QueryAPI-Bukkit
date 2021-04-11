@@ -1,5 +1,6 @@
 package xyz.invisraidinq.queryapi.server;
 
+import com.google.gson.JsonObject;
 import org.bukkit.Bukkit;
 
 public class Server {
@@ -10,6 +11,7 @@ public class Server {
     private final String motd;
     private ServerStatus serverStatus;
     private final String baseServerVersion;
+    private long lastUpdate;
 
     /**
      * Constructor to initialise an {@link Server} object
@@ -23,6 +25,7 @@ public class Server {
         this.motd = Bukkit.getMotd();
         this.serverStatus = Bukkit.hasWhitelist() ? ServerStatus.WHITELISTED : ServerStatus.ONLINE;
         this.baseServerVersion = Bukkit.getVersion();
+        this.lastUpdate = System.currentTimeMillis();
     }
 
     /**
@@ -42,6 +45,17 @@ public class Server {
         this.motd = motd;
         this.serverStatus = serverStatus;
         this.baseServerVersion = baseServerVersion;
+        this.lastUpdate = System.currentTimeMillis();
+    }
+
+    public Server(JsonObject object) {
+        this.serverName = object.get("serverName").getAsString();
+        this.onlinePlayers = object.get("onlinePlayers").getAsInt();
+        this.maxPlayers = object.get("maxPlayers").getAsInt();
+        this.motd = object.get("motd").getAsString();
+        this.serverStatus = ServerStatus.valueOf(object.get("serverStatus").getAsString());
+        this.baseServerVersion = object.get("baseServerVersion").getAsString();
+        this.lastUpdate = System.currentTimeMillis();
     }
 
     /**
@@ -98,4 +112,23 @@ public class Server {
     public String getBaseServerVersion() {
         return this.baseServerVersion;
     }
+
+    /**
+     * Get the time of last update
+     *
+     * @return The cached last update time
+     */
+    public long getLastUpdate() {
+        return this.lastUpdate;
+    }
+
+    /**
+     * Set the server in an offline state
+     */
+    public void setOffline() {
+        this.serverStatus = ServerStatus.OFFLINE;
+        this.maxPlayers = 0;
+        this.onlinePlayers = 0;
+    }
+
 }

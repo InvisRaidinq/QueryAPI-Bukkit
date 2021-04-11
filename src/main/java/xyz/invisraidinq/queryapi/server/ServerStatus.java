@@ -17,6 +17,11 @@ public enum ServerStatus {
         this.format = format;
     }
 
+    /**
+     * Get the format of the server status
+     *
+     * @return The server status format
+     */
     public String getFormat() {
         return this.format;
     }

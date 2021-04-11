@@ -41,4 +41,13 @@ public class ServerManager {
     public Server getServerByName(String serverName) {
         return this.serverMap.getOrDefault(serverName.toLowerCase(), null);
     }
+
+    /**
+     * Get the server map
+     *
+     * @return The server map
+     */
+    public Map<String, Server> getServerMap() {
+        return this.serverMap;
+    }
 }

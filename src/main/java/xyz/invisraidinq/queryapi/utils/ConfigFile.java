@@ -86,6 +86,13 @@ public class ConfigFile {
         return 0D;
     }
 
+    public Long getLong(String path) {
+        if (this.config.contains(path)) {
+            return this.config.getLong(path);
+        }
+        return 0L;
+    }
+
     public void save() {
         try {
             this.config.save(this.configFile);

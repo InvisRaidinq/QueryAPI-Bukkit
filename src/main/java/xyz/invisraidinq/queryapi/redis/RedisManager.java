@@ -1,11 +1,14 @@
 package xyz.invisraidinq.queryapi.redis;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPubSub;
 import xyz.invisraidinq.queryapi.server.Server;
 import xyz.invisraidinq.queryapi.server.ServerManager;
 import xyz.invisraidinq.queryapi.server.ServerStatus;
+import xyz.invisraidinq.queryapi.utils.CC;
 import xyz.invisraidinq.queryapi.utils.ConfigFile;
 
 public class RedisManager {
@@ -55,15 +58,13 @@ public class RedisManager {
             public void onMessage(String channel, String message) {
                 if (channel.equalsIgnoreCase(jedisChannel)) {
                     String[] data = message.split("///");
+
+                    CC.log("Received command " + data[0]);
                     switch (data[0]) {
                         case "ServerUpdate":
-                            String serverName = data[1];
-                            int onlinePlayers = Integer.parseInt(data[2]);
-                            int maxPlayers = Integer.parseInt(data[3]);
-                            String motd = data[4];
-                            ServerStatus serverStatus = ServerStatus.valueOf(data[5]);
-                            String version = data[6];
-                            serverManager.initOrUpdateServer(new Server(serverName, onlinePlayers, maxPlayers, motd, serverStatus, version));
+                            JsonObject object = JsonParser.parseString(data[1]).getAsJsonObject();
+                            serverManager.initOrUpdateServer(new Server(object));
+                            CC.log("Updated server " + object.get("serverName").getAsString());
                             break;
                         default:
                             break;
