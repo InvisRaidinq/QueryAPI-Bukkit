@@ -48,6 +48,11 @@ public class Server {
         this.lastUpdate = System.currentTimeMillis();
     }
 
+    /**
+     * Constructor to initialise an {@link Server} with an {@link JsonObject}
+     *
+     * @param object The {@link JsonObject} object
+     */
     public Server(JsonObject object) {
         this.serverName = object.get("serverName").getAsString();
         this.onlinePlayers = object.get("onlinePlayers").getAsInt();
