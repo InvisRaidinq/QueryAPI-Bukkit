@@ -136,4 +136,13 @@ public class Server {
         this.onlinePlayers = 0;
     }
 
+    /**
+     * Set the status of the server
+     *
+     * @param status The {@link ServerStatus} status
+     */
+    public void setServerStatus(ServerStatus status) {
+        this.serverStatus = status;
+    }
+
 }

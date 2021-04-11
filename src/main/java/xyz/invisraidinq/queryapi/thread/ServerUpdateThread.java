@@ -45,7 +45,7 @@ public class ServerUpdateThread extends Thread {
                 object.addProperty("onlinePlayers", serverToUpdate.getOnlinePlayers());
                 object.addProperty("maxPlayers", serverToUpdate.getMaxPlayers());
                 object.addProperty("motd", serverToUpdate.getMotd());
-                object.addProperty("serverStatus", serverToUpdate.getServerStatus().toString());
+                object.addProperty("serverStatus", ServerStatus.BOOTING.toString());
                 object.addProperty("baseServerVersion", serverToUpdate.getBaseServerVersion());
             } else {
                 object.addProperty("serverName", server.getServerName());
