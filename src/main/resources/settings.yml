@@ -9,3 +9,4 @@ DATABASE:
 
 SERVER:
   NAME: 'Hub01'
+  UPDATE-INTERVAL: 2000 #2 seconds (Time in ms)

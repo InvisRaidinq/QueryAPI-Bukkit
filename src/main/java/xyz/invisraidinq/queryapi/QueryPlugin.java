@@ -27,7 +27,7 @@ public class QueryPlugin extends JavaPlugin {
         this.redisManager = new RedisManager(this.serverManager, this.settingsFile);
 
         new ServerUpdateThread(this.serverManager, this.redisManager, this.settingsFile).start();
-        new ServerHeartbeatTask(this.serverManager).runTaskTimerAsynchronously(this, 0L, 200L);
+        new ServerHeartbeatTask(this.serverManager, this.settingsFile).runTaskTimerAsynchronously(this, 0L, 200L);
 
         new QueryAPI(this, this.serverManager);
 

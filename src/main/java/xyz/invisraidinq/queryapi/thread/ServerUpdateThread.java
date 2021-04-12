@@ -15,6 +15,7 @@ public class ServerUpdateThread extends Thread {
     private final RedisManager redisManager;
 
     private final String serverName;
+    private final long updateInterval;
 
     /**
      * Constructor to initialise the {@link ServerUpdateThread} instance
@@ -30,6 +31,7 @@ public class ServerUpdateThread extends Thread {
         this.redisManager = redisManager;
 
         this.serverName = settingsFile.getString("SERVER.NAME");
+        this.updateInterval = settingsFile.getLong("SERVER.UPDATE-INTERVAL");
     }
 
     @Override
@@ -59,7 +61,7 @@ public class ServerUpdateThread extends Thread {
             new JedisPublisher(this.redisManager, this.serverManager).publishData("ServerUpdate///" + object.toString());
 
             try {
-                Thread.sleep(10000L);
+                Thread.sleep(this.updateInterval);
             } catch (Exception e) {
                 e.printStackTrace();
             }
