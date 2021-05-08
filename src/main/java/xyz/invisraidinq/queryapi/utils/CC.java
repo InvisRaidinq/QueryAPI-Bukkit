@@ -10,6 +10,8 @@ import java.util.List;
 
 public class CC {
 
+    public static final String MESSAGE_SPLITTER = "///";
+
     /**
      * @param text the text to colorize
      * @return A coloured string
@@ -22,7 +24,7 @@ public class CC {
      * @param list The array to translate
      * @return A translated array
      */
-    public static List<String> colour (List<String> list) {
+    public static List<String> colour(List<String> list) {
         List<String> translated = new ArrayList<>();
         for (String string : list) {
             translated.add(colour(string));
@@ -34,8 +36,6 @@ public class CC {
      * @param text The text to output
      */
     public static void log(String text) {
-        Bukkit.getConsoleSender().sendMessage(colour("[" + JavaPlugin.getPlugin(QueryPlugin.class).getName() +  "] " + text));
+        Bukkit.getConsoleSender().sendMessage(colour("[" + JavaPlugin.getPlugin(QueryPlugin.class).getName() /* why just why */ +  "] " + text));
     }
-
-
 }
