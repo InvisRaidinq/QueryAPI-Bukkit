@@ -6,7 +6,7 @@ import xyz.invisraidinq.queryapi.server.ServerManager;
 import xyz.invisraidinq.queryapi.utils.CC;
 import xyz.invisraidinq.queryapi.utils.ConfigFile;
 
-public class RedisManager {
+public class JedisManager {
 
     private final ServerManager serverManager;
 
@@ -19,12 +19,12 @@ public class RedisManager {
     private final boolean jedisAuth;
 
     /**
-     * Constructor to initialise the RedisManager
+     * Constructor to initialise the JedisManager
      *
      * @param serverManager The {@link ServerManager} object
      * @param settingsFile The {@link ConfigFile} that stores the redis credentials
      */
-    public RedisManager(ServerManager serverManager, ConfigFile settingsFile) {
+    public JedisManager(ServerManager serverManager, ConfigFile settingsFile) {
         this.serverManager = serverManager;
 
         final String databasePath = "DATABASE.REDIS.";
@@ -37,16 +37,22 @@ public class RedisManager {
         this.jedis = this.jedisPool.getResource();
 
         this.authenticate();
-        this.tryToConnect();
+        this.subscribe();
     }
 
+    /**
+     * Authenticate jedis
+     */
     public void authenticate() {
         if (this.jedisAuth) {
             this.jedis.auth(this.jedisPassword);
         }
     }
 
-    public void tryToConnect() {
+    /**
+     * Try to subscribe to the jedis channel
+     */
+    public void subscribe() {
         new Thread(() -> {
             try {
                 this.jedis.subscribe(new JedisSubscriber(this), this.jedisChannel);

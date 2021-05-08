@@ -8,15 +8,15 @@ import xyz.invisraidinq.queryapi.utils.CC;
 
 public class JedisSubscriber extends JedisPubSub {
 
-    private final RedisManager redisManager;
+    private final JedisManager jedisManager;
 
-    public JedisSubscriber(RedisManager redisManager) {
-        this.redisManager = redisManager;
+    public JedisSubscriber(JedisManager jedisManager) {
+        this.jedisManager = jedisManager;
     }
 
     @Override
     public void onMessage(String channel, String message) {
-        if (channel.equalsIgnoreCase(this.redisManager.getJedisChannel())) {
+        if (channel.equalsIgnoreCase(this.jedisManager.getJedisChannel())) {
             final String[] data = message.split(CC.MESSAGE_SPLITTER);
             final String command = data[0];
 
@@ -25,7 +25,7 @@ public class JedisSubscriber extends JedisPubSub {
             if (command.equals("ServerUpdate")) {
                 final JsonObject object = JsonParser.parseString(data[1]).getAsJsonObject();
 
-                this.redisManager.getServerManager().initOrUpdateServer(new Server(object));
+                this.jedisManager.getServerManager().initOrUpdateServer(new Server(object));
 
                 CC.log("Updated server " + object.get("serverName").getAsString());
             } else {

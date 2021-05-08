@@ -1,7 +1,7 @@
 package xyz.invisraidinq.queryapi;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import xyz.invisraidinq.queryapi.redis.RedisManager;
+import xyz.invisraidinq.queryapi.redis.JedisManager;
 import xyz.invisraidinq.queryapi.server.ServerManager;
 import xyz.invisraidinq.queryapi.task.ServerHeartbeatTask;
 import xyz.invisraidinq.queryapi.thread.ServerUpdateThread;
@@ -11,7 +11,7 @@ import xyz.invisraidinq.queryapi.utils.ConfigFile;
 public class QueryPlugin extends JavaPlugin {
 
     private ConfigFile settingsFile;
-    private RedisManager redisManager;
+    private JedisManager jedisManager;
     private ServerManager serverManager;
 
     @Override
@@ -24,9 +24,9 @@ public class QueryPlugin extends JavaPlugin {
 
         this.serverManager = new ServerManager(this);
 
-        this.redisManager = new RedisManager(this.serverManager, this.settingsFile);
+        this.jedisManager = new JedisManager(this.serverManager, this.settingsFile);
 
-        new ServerUpdateThread(this.serverManager, this.redisManager, this.settingsFile).start();
+        new ServerUpdateThread(this.serverManager, this.jedisManager, this.settingsFile).start();
         new ServerHeartbeatTask(this.serverManager, this.settingsFile).runTaskTimerAsynchronously(this, 0L, 200L);
 
         new QueryAPI(this, this.serverManager);

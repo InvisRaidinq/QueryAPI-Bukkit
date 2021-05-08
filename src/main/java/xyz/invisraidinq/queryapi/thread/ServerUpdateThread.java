@@ -3,7 +3,7 @@ package xyz.invisraidinq.queryapi.thread;
 import com.google.gson.JsonObject;
 import org.bukkit.Bukkit;
 import xyz.invisraidinq.queryapi.redis.JedisPublisher;
-import xyz.invisraidinq.queryapi.redis.RedisManager;
+import xyz.invisraidinq.queryapi.redis.JedisManager;
 import xyz.invisraidinq.queryapi.server.Server;
 import xyz.invisraidinq.queryapi.server.ServerManager;
 import xyz.invisraidinq.queryapi.server.ServerStatus;
@@ -13,7 +13,7 @@ import xyz.invisraidinq.queryapi.utils.ConfigFile;
 public class ServerUpdateThread extends Thread {
 
     private final ServerManager serverManager;
-    private final RedisManager redisManager;
+    private final JedisManager jedisManager;
 
     private final String serverName;
     private final long updateInterval;
@@ -22,14 +22,14 @@ public class ServerUpdateThread extends Thread {
      * Constructor to initialise the {@link ServerUpdateThread} instance
      *
      * @param serverManager The {@link ServerManager} instance
-     * @param redisManager The {@link RedisManager} instance
+     * @param jedisManager The {@link JedisManager} instance
      * @param settingsFile The {@link ConfigFile} storing the server name
      */
-    public ServerUpdateThread(ServerManager serverManager, RedisManager redisManager, ConfigFile settingsFile) {
+    public ServerUpdateThread(ServerManager serverManager, JedisManager jedisManager, ConfigFile settingsFile) {
         this.setName("QueryPlugin-Bukkit-ServerUpdate");
 
         this.serverManager = serverManager;
-        this.redisManager = redisManager;
+        this.jedisManager = jedisManager;
 
         this.serverName = settingsFile.getString("SERVER.NAME");
         this.updateInterval = settingsFile.getLong("SERVER.UPDATE-INTERVAL");
@@ -59,7 +59,7 @@ public class ServerUpdateThread extends Thread {
                 object.addProperty("baseServerVersion", server.getBaseServerVersion());
             }
 
-            new JedisPublisher(this.redisManager).publishData("ServerUpdate" + CC.MESSAGE_SPLITTER + object.toString());
+            new JedisPublisher(this.jedisManager).publishData("ServerUpdate" + CC.MESSAGE_SPLITTER + object.toString());
 
             try {
                 Thread.sleep(this.updateInterval);

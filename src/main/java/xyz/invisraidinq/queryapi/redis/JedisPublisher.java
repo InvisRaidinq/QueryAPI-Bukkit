@@ -6,26 +6,26 @@ import xyz.invisraidinq.queryapi.server.ServerManager;
 public class JedisPublisher {
 
     private Jedis jedis;
-    private final RedisManager redisManager;
+    private final JedisManager jedisManager;
 
     /**
      * Constructor to initialise the JedisPublisher class
      *
-     * @param redisManager The {@link RedisManager} instance
+     * @param jedisManager The {@link JedisManager} instance
      */
-    public JedisPublisher(RedisManager redisManager) {
-        this.redisManager = redisManager;
+    public JedisPublisher(JedisManager jedisManager) {
+        this.jedisManager = jedisManager;
     }
 
     public void publishData(String message) {
         try {
-            this.jedis = this.redisManager.getJedisPool().getResource();
+            this.jedis = this.jedisManager.getJedisPool().getResource();
 
-            if (this.redisManager.isJedisAuth()) {
-                this.jedis.auth(this.redisManager.getJedisPassword());
+            if (this.jedisManager.isJedisAuth()) {
+                this.jedis.auth(this.jedisManager.getJedisPassword());
             }
 
-            this.jedis.publish(this.redisManager.getJedisChannel(), message);
+            this.jedis.publish(this.jedisManager.getJedisChannel(), message);
         } finally {
             this.jedis.close();
         }
