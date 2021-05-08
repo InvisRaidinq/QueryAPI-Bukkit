@@ -7,6 +7,7 @@ import xyz.invisraidinq.queryapi.redis.RedisManager;
 import xyz.invisraidinq.queryapi.server.Server;
 import xyz.invisraidinq.queryapi.server.ServerManager;
 import xyz.invisraidinq.queryapi.server.ServerStatus;
+import xyz.invisraidinq.queryapi.utils.CC;
 import xyz.invisraidinq.queryapi.utils.ConfigFile;
 
 public class ServerUpdateThread extends Thread {
@@ -58,7 +59,7 @@ public class ServerUpdateThread extends Thread {
                 object.addProperty("baseServerVersion", server.getBaseServerVersion());
             }
 
-            new JedisPublisher(this.redisManager, this.serverManager).publishData("ServerUpdate///" + object.toString());
+            new JedisPublisher(this.redisManager).publishData("ServerUpdate" + CC.MESSAGE_SPLITTER + object.toString());
 
             try {
                 Thread.sleep(this.updateInterval);
@@ -66,6 +67,5 @@ public class ServerUpdateThread extends Thread {
                 e.printStackTrace();
             }
         }
-
     }
 }
