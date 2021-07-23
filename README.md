@@ -41,7 +41,7 @@ public class ExampleClass {
     private final QueryAPI queryAPI = QueryAPI.getInstance();
     
     public void broadcastOnlinePlayers() {
-        Bukkit.broadcastMessage(ChatColor.GREEN + "There are currently " + queryAPI.getOnlinePlayers() + " players on this network");
+        Bukkit.broadcastMessage(ChatColor.GREEN + "There are currently " + this.queryAPI.getOnlinePlayers() + " players on this network");
     }
 }
 ```
