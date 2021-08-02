@@ -6,7 +6,7 @@ import xyz.invisraidinq.queryapi.server.ServerManager;
 
 public class QueryAPI {
 
-    private static QueryAPI apiInstance;
+    private static QueryAPI INSTANCE;
 
     private final ServerManager serverManager;
 
@@ -19,7 +19,7 @@ public class QueryAPI {
      * @param serverManager The {@link ServerManager} instance
      */
     public QueryAPI(QueryPlugin plugin, ServerManager serverManager) {
-        apiInstance = this;
+        INSTANCE = this;
 
         this.serverManager = serverManager;
 
@@ -61,6 +61,6 @@ public class QueryAPI {
      * @return The {@link QueryAPI} instance
      */
     public static QueryAPI getInstance() {
-        return apiInstance;
+        return INSTANCE;
     }
 }

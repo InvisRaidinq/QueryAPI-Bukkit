@@ -59,7 +59,7 @@ public class ServerUpdateThread extends Thread {
                 object.addProperty("baseServerVersion", server.getBaseServerVersion());
             }
 
-            new JedisPublisher(this.jedisManager).publishData("ServerUpdate" + CC.MESSAGE_SPLITTER + object.toString());
+            new JedisPublisher(this.jedisManager).publishData("ServerUpdate" + CC.MESSAGE_SPLITTER + object);
 
             try {
                 Thread.sleep(this.updateInterval);
