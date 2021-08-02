@@ -11,7 +11,7 @@ public class Server {
     private final String motd;
     private ServerStatus serverStatus;
     private final String baseServerVersion;
-    private final long lastUpdate;
+    private long lastUpdate;
 
     /**
      * Constructor to initialise an {@link Server} object

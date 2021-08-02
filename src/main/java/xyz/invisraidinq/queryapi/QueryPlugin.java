@@ -39,6 +39,6 @@ public class QueryPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        
     }
 }
